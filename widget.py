@@ -7,11 +7,11 @@ import json
 import pymel.core as pm
 
 
-class MyDockableButton(MayaQWidgetDockableMixin, QtWidgets.QWidget):
+class MyDockableWidget(MayaQWidgetDockableMixin, QtWidgets.QWidget):
     TITLE = "DockableButton"
 
     def __init__(self, parent=None):
-        super(MyDockableButton, self).__init__(parent=parent)
+        super(MyDockableWidget, self).__init__(parent=parent)
         # オブジェクト名とタイトルの変更
         self.setObjectName(self.TITLE)
         self.setWindowTitle(self.TITLE)
@@ -21,8 +21,8 @@ class MyDockableButton(MayaQWidgetDockableMixin, QtWidgets.QWidget):
 
 def get_ui():
     ui = {w.objectName(): w for w in QtWidgets.QApplication.allWidgets()}
-    if MyDockableButton.TITLE in ui:
-        return ui[MyDockableButton.TITLE]
+    if MyDockableWidget.TITLE in ui:
+        return ui[MyDockableWidget.TITLE]
     return None
 
 
@@ -87,7 +87,6 @@ def restoration_docking_ui():
     場合のみ動作する
     :return:
     '''
-    print 'hogehoge'
     path = get_docking_filepath()
     if os.path.isfile(path) is False:
         return
@@ -96,7 +95,7 @@ def restoration_docking_ui():
     if _dict['display'] is False:
         return
     if _dict['floating'] is False and _dict['area'] is not None:
-        window = MyDockableButton()
+        window = MyDockableWidget()
         window.show(
             dockable=True,
             area=_dict['area'],
@@ -113,7 +112,7 @@ def main():
         print ui
         ui.close()
 
-    button = MyDockableButton()
+    button = MyDockableWidget()
     button.show(dockable=True)
     
 if __name__ == '__main__':
